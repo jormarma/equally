@@ -1,5 +1,5 @@
 {
-  "name": "deep-equals",
+  "name": "@jormarma/deep-equals",
   "version": "0.1.0",
   "description": "Gets the difference between two different Objects/Arrays",
   "main": "src/app.js",
