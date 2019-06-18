@@ -1,7 +1,11 @@
 {
   "name": "equally",
-  "version": "0.1.1",
-  "description": "Gets the difference between two different Objects/Arrays",
+  "version": "0.1.2",
+  "repository": {
+    "url": "https://github.com/jormarma/equally.git",
+    "type": "git"
+  },
+  "description": "Method to deeply compare two Javascript Objects for equality.",
   "main": "src/app.js",
   "engines": {
     "node": ">=12.4.0"
@@ -10,9 +14,12 @@
     "test": "jest"
   },
   "keywords": [
-    "javascript"
+    "javascript",
+    "nodejs",
+    "equals",
+    "compare"
   ],
-  "author": "Jorge Marti Marin <jormarma@gmail.com>",
+  "author": "Jorge Martí Marín <jormarma@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
     "eslint": "^5.16.0",
