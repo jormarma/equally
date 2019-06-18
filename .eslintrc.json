@@ -1,0 +1,54 @@
+{
+    "env": {
+        "node": true,
+        "es6": true,
+        "jest/globals": true
+    },
+    "plugins": [
+        "jest"
+    ],
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "block-spacing": ["error", "always"],
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "indent": [ "error", 4 ],
+        "linebreak-style": [ "error", "unix" ],
+        "quotes": [ "error", "double" ],
+        "semi": [ "error", "always" ],
+        "comma-dangle": [ "error", "never" ],
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "object-curly-spacing": ["error", "always"],
+        "keyword-spacing": ["error", { 
+            "before": true,
+            "after": true
+        }],
+        "key-spacing": ["error", {
+            "singleLine": {
+                "beforeColon": false,
+                "afterColon": true
+            },
+            "multiLine": {
+                "beforeColon": false,
+                "afterColon": true
+        
+            },
+            "align": {
+                "beforeColon": true,
+                "afterColon": true,
+                "on": "colon"
+            }
+        }]
+    }
+}
