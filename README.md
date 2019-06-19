@@ -1,5 +1,7 @@
 # Equally
 
+[![Build Status](https://travis-ci.org/jormarma/equally.svg?branch=master)](https://travis-ci.org/jormarma/equally)
+
 This project is a simple method to deeply compare two Javascript values for equality.
 
 ## Instalation and usage
