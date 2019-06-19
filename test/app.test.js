@@ -75,6 +75,11 @@ const paramsBasicTypes = [
         result : false
     },
     {
+        value1 : BigInt(1),
+        value2 : BigInt("1"),
+        result : true
+    },
+    {
         value1      : null,
         value2      : {},
         result      : false,
