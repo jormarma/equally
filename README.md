@@ -6,7 +6,7 @@ This project is a simple method to deeply compare two Javascript values for equa
 
 ## Instalation and usage
 
-You only have to install `equally` using the regular procedure with npm:
+You only have to install `equally` using the regular procedure with `npm`:
 
 ```javascript
 npm install equally
@@ -39,10 +39,17 @@ equals(Infinity, Number.POSITIVE_INFINITY); // true
 equals("one", "One"); // false
 ```
 
-The order of the fields of an object are irrelevant:
+By default, the object properties order is irrelevant:
 
 ```javascript
 equals({ a: 1, b: 2 }, { b: 2, a: 1 }); // true
+```
+
+You can configure the equals method to take into consideration the order of the properties in an object using an optional configuration object with the `orderedObjectProperties` property set to `true`:
+
+```javascript
+equals({ a: 1, b: 2 }, { b: 2, a: 1 }, { orderedObjectProperties: true }); // false
+equals({ a: 1, b: 2 }, { a: 1, b: 2 }, { orderedObjectProperties: true }); // true
 ```
 
 On the other hand, order of arrays is important:

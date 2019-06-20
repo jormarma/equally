@@ -3,15 +3,25 @@ const isDef = (value) => value !== null && value !== undefined;
 const anyUndef = (... values) => !values.every(value => isDef(value));
 
 // same own properties, same values, any order
-const equalObjects = (obj1, obj2) => {
-    const keys1 = Object.keys(obj1).sort();
+const equalObjects = (obj1, obj2, options) => {
+    let keys1;
+    let keys2;
 
-    if (!equalArrays(keys1, Object.keys(obj2).sort())) {
+    if (options && options.orderedObjectProperties) {
+        keys1 = Object.keys(obj1);
+        keys2 = Object.keys(obj2);
+        
+    } else {
+        keys1 = Object.keys(obj1).sort();
+        keys2 = Object.keys(obj2).sort();
+    }
+
+    if (!equalArrays(keys1, keys2)) {
         return false;
     } 
 
     for (let i = 0; i < keys1.length; i += 1) {
-        if (!equals(obj1[keys1[i]], obj2[keys1[i]])) {
+        if (!equals(obj1[keys1[i]], obj2[keys2[i]], options)) {
             return false;
         }
     }
@@ -36,7 +46,7 @@ const equalArrays = (array1, array2) => {
     return true;
 };
 
-const equals = (value1, value2) => {
+const equals = (value1, value2, options) => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
     if (Object.is(value1, value2)) {
         return true;
@@ -58,7 +68,7 @@ const equals = (value1, value2) => {
 
     // If both are objects, they have a special treatment
     if (value1.constructor === Object && value2.constructor === Object) {
-        return equalObjects(value1, value2);
+        return equalObjects(value1, value2, options);
     }
 
     // If both are arrays, they have a special treatment

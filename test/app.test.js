@@ -137,6 +137,29 @@ const paramsObjects = [
     }
 ];
 
+const paramsObjectsWithOrderedProperties = [
+    {
+        value1 : { a: 1, b: 1 },
+        value2 : { b: 1, a: 1 },
+        result : false
+    },
+    {
+        value1 : { a: 1, b: 1 },
+        value2 : { a: 1, b: 1 },
+        result : true
+    },
+    {
+        value1 : { a: 1, b: { c: 1, d: 1 } },
+        value2 : { a: 1, b: { d: 1, c: 1 } },
+        result : false
+    },
+    {
+        value1 : { a: 1, b: { c: 1, d: 1 } },
+        value2 : { a: 1, b: { c: 1, d: 1 } },
+        result : true
+    }
+];
+
 const paramsArrays = [
     {
         value1 : [1, 2],
@@ -250,6 +273,21 @@ describe("equals (objects)", () => {
             
         test(testDescription, () => {
             expect(app.equals(value1, value2)).toBe(result);
+        });
+    });
+});
+
+describe("equals (objects with ordered properties)", () => {
+    paramsObjectsWithOrderedProperties.forEach(({ value1, value2, result }) => {
+        const val1 = JSON.stringify(value1);
+        const val2 = JSON.stringify(value2);
+
+        const testDescription = result
+            ? `${val1} = ${val2}`
+            : `${val1} \u2260 ${val2}`;
+            
+        test(testDescription, () => {
+            expect(app.equals(value1, value2, { orderedObjectProperties: true })).toBe(result);
         });
     });
 });
