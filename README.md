@@ -45,6 +45,12 @@ By default, the object properties order is irrelevant:
 equals({ a: 1, b: 2 }, { b: 2, a: 1 }); // true
 ```
 
+On the other hand, order of arrays is important:
+
+```javascript
+equals([ 1, 2 ], [ 2, 1 ]); // false
+```
+
 You can configure the equals method to take into consideration the order of the properties in an object using an optional configuration object with the `orderedObjectProperties` property set to `true`:
 
 ```javascript
@@ -52,10 +58,10 @@ equals({ a: 1, b: 2 }, { b: 2, a: 1 }, { orderedObjectProperties: true }); // fa
 equals({ a: 1, b: 2 }, { a: 1, b: 2 }, { orderedObjectProperties: true }); // true
 ```
 
-On the other hand, order of arrays is important:
+You can also configure the equals method to consider arrays as unordered sets of values using an optional configuration object with the `unorderedArrays` property set to `true`:
 
 ```javascript
-equals([ 1, 2 ], [ 2, 1 ]); // false
+equals([ 1, 2 ], [ 2, 1 ], { unorderedArrays: true }); // true
 ```
 
 You can also compare complex objects of any depth:
@@ -84,6 +90,29 @@ const object2 = {
 };
 
 equals(object1, object2); // true
+```
+
+And you can can use any combination in the options object:
+
+
+```javascript
+let object1 = { a : 1, b : [ 1, 2 ] };
+let object2 = { a : 1, b : [ 2, 1 ] };
+let options = {
+    unorderedArrays: true,
+    orderedObjectProperties: false // default is false
+};
+
+equals(object1, object2, options); // true
+
+let object1 = { a : 1, b : [ 1, 2 ] };
+let object2 = { b : [ 2, 1 ], a : 1 };
+let options = {
+    unorderedArrays: true,
+    orderedObjectProperties: true
+};
+
+equals(object1, object2, options); // false
 ```
 
 ### License

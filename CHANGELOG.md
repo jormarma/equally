@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.2.0
+
+- Consider arrays as unordered sets is now configurable.
+- Improved documentation.
+- Updated roadmap.
+- Updated tests.
+
 ## Version 0.1.4
 
 - Configurable meaning of order in object properties.

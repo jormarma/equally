@@ -1,0 +1,5 @@
+{
+    "eslint.autoFixOnSave": true,
+    "javascript.referencesCodeLens.enabled": true,
+    "typescript.implementationsCodeLens.enabled": true
+}
