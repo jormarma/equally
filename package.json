@@ -1,12 +1,12 @@
 {
   "name": "equally",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": {
     "url": "https://github.com/jormarma/equally.git",
     "type": "git"
   },
   "description": "Method to deeply compare two Javascript Objects for equality.",
-  "main": "src/app.js",
+  "main": "src/equally.js",
   "engines": {
     "node": ">=12.4.0"
   },

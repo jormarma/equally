@@ -10,7 +10,3 @@ Creation of a new function returning an object with detailed differences between
 ## Inclusion
 
 Creation of a new function that determines if all values of a complex value (object, array) are included in another object.
-
-## Configuration of the comparison
-
-Configurable case sensitivity for strings.

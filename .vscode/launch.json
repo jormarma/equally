@@ -10,9 +10,10 @@
             "name": "Jest All",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
             "args": [
-                "--runInBand"
+                "--runInBand",
+                "-i"
             ],
-            "runtimeVersion": "12.4.0",
+            "runtimeVersion": "12.6.0",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,

@@ -1,4 +1,6 @@
-const app = require("../src/app");
+"use strict";
+
+const app = require("../src/equally");
 
 const paramsBasicTypes = [
     {
@@ -254,90 +256,90 @@ const paramsSortTypes = [
         value1 : null,
         value2 : undefined,
         result : -1
-    }
-    , {
+    },
+    {
         value1 : undefined,
         value2 : null,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : null,
         value2 : null,
         result : 0
-    }
-    , {
+    },
+    {
         value1 : undefined,
         value2 : NaN,
         result : -1
-    }
-    , {
+    },
+    {
         value1 : NaN,
         value2 : undefined,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : undefined,
         value2 : undefined,
         result : 0
-    }
-    , {
+    },
+    {
         value1 : Infinity,
         value2 : BigInt(1),
         result : -1
-    }
-    , {
+    },
+    {
         value1 : BigInt(1),
         value2 : Infinity,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : Infinity,
         value2 : Infinity,
         result : 0
-    }
-    , {
+    },
+    {
         value1 : BigInt(1),
         value2 : "text",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "text",
         value2 : BigInt(1),
         result : 1
-    }
-    , {
+    },
+    {
         value1 : BigInt(1),
         value2 : BigInt(1),
         result : 0
-    }
-    , {
-        value1 : new Date(),    // Date type
-        value2 : /.?/,          // RegExp type
+    },
+    {
+        value1 : new Date(), // Date type
+        value2 : /.?/, // RegExp type
         result : -1
-    }
-    , {
-        value1 : /.?/,          // RegExp type
-        value2 : new Date("2020-02-02"),    // Date type
+    },
+    {
+        value1 : /.?/, // RegExp type
+        value2 : new Date("2020-02-02"), // Date type
         result : 1
-    }
-    , {
-        value1 : new Date("2020-02-02"),    // Date type
-        value2 : new Date("2020-02-02"),    // RegExp type
+    },
+    {
+        value1 : new Date("2020-02-02"), // Date type
+        value2 : new Date("2020-02-02"), // RegExp type
         result : 0
-    }
-    , {
-        value1 : /.?/,      // RegExp type
-        value2 : "/.?/",    // string type
+    },
+    {
+        value1 : /.?/, // RegExp type
+        value2 : "/.?/", // string type
         result : -1
-    }
-    , {
-        value1 : "/.?/",    // string type
-        value2 : /.?/,      // RegExp type
+    },
+    {
+        value1 : "/.?/", // string type
+        value2 : /.?/, // RegExp type
         result : 1
-    }
-    , {
-        value1 : /.?/,      // RegExp type
-        value2 : /.?/,    // string type
+    },
+    {
+        value1 : /.?/, // RegExp type
+        value2 : /.?/, // string type
         result : 0
     }
 ];
@@ -347,78 +349,78 @@ const paramsSortTypesString = [
         value1 : null,
         value2 : "null",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "null",
         value2 : null,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : undefined,
         value2 : "undefined",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "undefined",
         value2 : undefined,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : true,
         value2 : "true",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "true",
         value2 : true,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : NaN,
         value2 : "NaN",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "NaN",
         value2 : NaN,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : Infinity,
         value2 : "Infinity",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "Infinity",
         value2 : Infinity,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : BigInt(1),
         value2 : "1n",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "1n",
         value2 : BigInt(1),
         result : 1
-    }
-    , {
+    },
+    {
         value1 : new Date("2020-02-02"),
         value2 : "2020-02-02T00:00:00.000Z",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "2020-02-02T00:00:00.000Z",
         value2 : new Date("2020-02-02"),
         result : 1
-    }
-    , {
+    },
+    {
         value1 : /.?/,
         value2 : "/.?/",
         result : -1
-    }
-    , {
+    },
+    {
         value1 : "/.?/",
         value2 : /.?/,
         result : 1
@@ -430,73 +432,73 @@ const paramsSortSameTypeValues = [
         value1 : true,
         value2 : true,
         result : 0
-    }
-    , {
+    },
+    {
         value1 : true,
         value2 : false,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : false,
         value2 : true,
         result : -1
-    }
-    , {
+    },
+    {
         value1 : NaN,
         value2 : Infinity,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : NaN,
         value2 : -Infinity,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : Infinity,
         value2 : -Infinity,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : BigInt(1),
         value2 : BigInt(2),
         result : -1
-    }
-    , {
+    },
+    {
         value1 : BigInt(2),
         value2 : BigInt(1),
         result : 1
-    }
-    , {
+    },
+    {
         value1 : BigInt(1),
         value2 : BigInt(1),
         result : 0
-    }
-    , {
+    },
+    {
         value1 : new Date("2020-02-02"),
         value2 : new Date("2020-02-03"),
         result : -1
-    }
-    , {
+    },
+    {
         value1 : new Date("2020-02-03"),
         value2 : new Date("2020-02-02"),
         result : 1
-    }
-    , {
+    },
+    {
         value1 : new Date("2020-02-03"),
         value2 : new Date("2020-02-03"),
         result : 0
-    }
-    , {
+    },
+    {
         value1 : /a/,
         value2 : /b/,
         result : -1
-    }
-    , {
+    },
+    {
         value1 : /b/,
         value2 : /a/,
         result : 1
-    }
-    , {
+    },
+    {
         value1 : /a/,
         value2 : /a/,
         result : 0
@@ -509,76 +511,231 @@ const paramsUnorderedArrays = [
         value2      : [2, 3, 1],
         description : "[1, 2, 3] \u2243 [2, 3, 1]",
         result      : true
-    }, {
+    },
+    {
         value1      : [1, "2", 2],
         value2      : [2, 1, "2"],
         description : "[1, \"2\", 2] \u2243 [2, 1, \"2\"]",
         result      : true
-    }, {
+    },
+    {
         value1      : [NaN, false, new Date("2020-02-02"), /a/],
         value2      : [/a/, NaN, false, new Date("2020-02-02")],
-        description : "[NaN, false, new Date(\"2020-02-02\"), /a/] \u2243 [/a/, NaN, false, new Date(\"2020-02-02\")]",
-        result      : true
-    }, {
+        description :
+      "[NaN, false, new Date(\"2020-02-02\"), /a/] \u2243 [/a/, NaN, false, new Date(\"2020-02-02\")]",
+        result: true
+    },
+    {
         value1      : [Infinity, BigInt(1), "1n", 1.1],
         value2      : [1.1, Number.POSITIVE_INFINITY, "1n", BigInt(1)],
-        description : "[Infinity, BigInt(1), \"1n\", 1.1] \u2243 [1.1, Number.POSITIVE_INFINITY, \"1n\", BigInt(1)]",
-        result      : true
-    }, {
+        description :
+      "[Infinity, BigInt(1), \"1n\", 1.1] \u2243 [1.1, Number.POSITIVE_INFINITY, \"1n\", BigInt(1)]",
+        result: true
+    },
+    {
         value1      : [null, 1, undefined, "Infinity"],
         value2      : [1, undefined, "Infinity", null],
-        description : "[null, 1, undefined, \"Infinity\"] \u2243 [1, undefined, \"Infinity\", null]",
-        result      : true
-    }, {
+        description :
+      "[null, 1, undefined, \"Infinity\"] \u2243 [1, undefined, \"Infinity\", null]",
+        result: true
+    },
+    {
         value1      : [null, 1, undefined, "Infinity"],
         value2      : ["null", 1, undefined, "Infinity"],
-        description : "[null, 1, undefined, \"Infinity\"] \u2244 [\"null\", 1, undefined, \"Infinity\"]",
-        result      : false
+        description :
+      "[null, 1, undefined, \"Infinity\"] \u2244 [\"null\", 1, undefined, \"Infinity\"]",
+        result: false
     }
 ];
 
 const paramsConfiguration = [
     {
-        value1      : { a: 1, b: [ 1, 2 ] },
-        value2      : { b: [ 1, 2 ], a: 1 },
+        value1      : { a: 1, b: [1, 2] },
+        value2      : { b: [1, 2], a: 1 },
         options     : {},
         description : "Default configuration",
         result      : true
-    }, {
-        value1      : { a: 1, b: [ 1, 2 ] },
-        value2      : { b: [ 1, 2 ], a: 1 },
+    },
+    {
+        value1      : { a: 1, b: [1, 2] },
+        value2      : { b: [1, 2], a: 1 },
         options     : { orderedObjectProperties: true },
         description : "Ordered properties",
         result      : false
-    }, {
-        value1      : { a: 1, b: [ 1, 2 ] },
-        value2      : { a: 1, b: [ 1, 2 ] },
+    },
+    {
+        value1      : { a: 1, b: [1, 2] },
+        value2      : { a: 1, b: [1, 2] },
         options     : { orderedObjectProperties: true },
         description : "Ordered properties",
         result      : true
-    }, {
-        value1      : { a: 1, b: [ 1, 2 ] },
-        value2      : { a: 1, b: [ 2, 1 ] },
+    },
+    {
+        value1      : { a: 1, b: [1, 2] },
+        value2      : { a: 1, b: [2, 1] },
         options     : { orderedObjectProperties: true },
         description : "Ordered properties",
         result      : false
-    }, {
-        value1      : { a: 1, b: [ 1, 2 ] },
-        value2      : { a: 1, b: [ 2, 1 ] },
+    },
+    {
+        value1      : { a: 1, b: [1, 2] },
+        value2      : { a: 1, b: [2, 1] },
         options     : { orderedObjectProperties: true, unorderedArrays: true },
         description : "Ordered properties and unordered arrays",
         result      : true
     }
 ];
 
-const displayAsString = (value) => {
+const paramsCaseInsensitive = [
+    {
+        value1      : "Aa",
+        value2      : "aa",
+        options     : {},
+        description : "No case-insensitive",
+        result      : false
+    },
+    {
+        value1      : "Aa",
+        value2      : "aa",
+        options     : { caseInsensitive: true },
+        description : "Case-insensitive",
+        result      : true
+    },
+    {
+        value1      : { a: "Aa" },
+        value2      : { a: "aa" },
+        options     : {},
+        description : "No case-insensitive (objects)",
+        result      : false
+    },
+    {
+        value1      : { a: "Aa" },
+        value2      : { a: "aa" },
+        options     : { caseInsensitive: true },
+        description : "Case-insensitive (objects)",
+        result      : true
+    },
+    {
+        value1      : { a: "Aa" },
+        value2      : { A: "aa" },
+        options     : { caseInsensitive: true },
+        description : "Case-insensitive (only for object values)",
+        result      : false
+    }
+];
+
+const paramsDiffersSimpleTypes = [
+    {
+        value1 : "a",
+        value2 : null,
+        result : { ".": ["a", null] }
+    },
+    {
+        value1 : "a",
+        value2 : "b",
+        result : { ".": ["a", "b"] }
+    },
+    {
+        value1 : "a",
+        value2 : "a",
+        result : {}
+    },
+    {
+        value1 : undefined,
+        value2 : null,
+        result : { ".": [undefined, null] }
+    },
+    {
+        value1 : undefined,
+        value2 : undefined,
+        result : {}
+    },
+    {
+        value1 : BigInt(2),
+        value2 : BigInt(1),
+        result : { ".": [BigInt(2), BigInt(1)] }
+    },
+    {
+        value1 : 1,
+        value2 : 1.0,
+        result : {}
+    }
+];
+
+const paramsDiffersComplexTypes = [
+    {
+        value1 : [1, 2, 3, 4],
+        value2 : [1, 3, 3, 5],
+        result : {
+            ".[1]" : [2, 3],
+            ".[3]" : [4, 5]
+        }
+    },
+    {
+        value1 : [1, 2, [3, 4, []], 1.1, 0, 3],
+        value2 : [1, 3, [3, 5, [1]], 1.1, undefined],
+        result : {
+            ".[1]"       : [2, 3],
+            ".[2][1]"    : [4, 5],
+            ".[2][2][0]" : [undefined, 1, true],
+            ".[4]"       : [0, undefined],
+            ".[5]"       : [3, undefined, true]
+        }
+    },
+    {
+        value1 : { a: 1 },
+        value2 : { a: 1, b: 1 },
+        result : {
+            ".[\"b\"]": [undefined, 1, true]
+        }
+    },
+    {
+        value1 : { a: 1, b: 1 },
+        value2 : { a: 1 },
+        result : {
+            ".[\"b\"]": [1, undefined, true]
+        }
+    },
+    {
+        value1 : { a: 1, b: 2 },
+        value2 : { a: 1, b: 1 },
+        result : {
+            ".[\"b\"]": [2, 1]
+        }
+    },
+    {
+        value1 : { a: 1, b: 2, c: 3 },
+        value2 : { a: 1, b: 1, d: 3 },
+        result : {
+            ".[\"b\"]" : [2, 1],
+            ".[\"c\"]" : [3, undefined, true],
+            ".[\"d\"]" : [undefined, 3, true]
+        }
+    },
+    {
+        value1 : { a: 1, b: { c: 2, d: [3, 4, 5, 6] }, k: undefined },
+        value2 : { a: 0, b: { c: 1, d: [3, 3, 5] }, e: 3, k: 666 },
+        result : {
+            ".[\"a\"]"           : [1, 0],
+            ".[\"b\"][\"c\"]"    : [2, 1],
+            ".[\"b\"][\"d\"][1]" : [4, 3],
+            ".[\"b\"][\"d\"][3]" : [6, undefined, true],
+            ".[\"e\"]"           : [undefined, 3, true],
+            ".[\"k\"]"           : [undefined, 666]
+        }
+    }
+];
+
+const displayAsString = value => {
     if (typeof value === "string") {
         return `"${value}"`;
-
     } else if (typeof value === "bigint") {
         return `${value}n`;
-
-    } else if (value !== null && value !== undefined && value.constructor.name === "Date") {
+    } else if (
+        value !== null &&
+    value !== undefined &&
+    value.constructor.name === "Date"
+    ) {
         return `${value.toISOString()}`;
     }
 
@@ -662,8 +819,10 @@ describe("equals (complex values)", () => {
 describe("sortArrayValues (order between types)", () => {
     paramsSortTypes.forEach(({ value1, value2, description, result }) => {
         const testDescription = result
-            ? description || `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
-            : description || `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
+            ? description ||
+        `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
+            : description ||
+        `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
 
         test(testDescription, () => {
             expect(app.sortArrayValues(value1, value2)).toBe(result);
@@ -674,8 +833,10 @@ describe("sortArrayValues (order between types)", () => {
 describe("sortArrayValues (order of types and strings)", () => {
     paramsSortTypesString.forEach(({ value1, value2, description, result }) => {
         const testDescription = result
-            ? description || `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
-            : description || `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
+            ? description ||
+        `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
+            : description ||
+        `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
 
         test(testDescription, () => {
             expect(app.sortArrayValues(value1, value2)).toBe(result);
@@ -684,38 +845,95 @@ describe("sortArrayValues (order of types and strings)", () => {
 });
 
 describe("sortArrayValues (order of values of the same type)", () => {
-    paramsSortSameTypeValues.forEach(({ value1, value2, description, result }) => {
-        const testDescription = result
-            ? description || `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
-            : description || `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
+    paramsSortSameTypeValues.forEach(
+        ({ value1, value2, description, result }) => {
+            const testDescription = result
+                ? description ||
+          `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
+                : description ||
+          `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
 
-        test(testDescription, () => {
-            expect(app.sortArrayValues(value1, value2)).toBe(result);
-        });
-    });
+            test(testDescription, () => {
+                expect(app.sortArrayValues(value1, value2)).toBe(result);
+            });
+        }
+    );
 });
 
 describe("sortArrayValues (unordered)", () => {
     paramsUnorderedArrays.forEach(({ value1, value2, description, result }) => {
         const testDescription = result
-            ? description || `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
-            : description || `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
+            ? description ||
+        `${displayAsString(value1)} \u2243 ${displayAsString(value2)}`
+            : description ||
+        `${displayAsString(value1)} \u2244 ${displayAsString(value2)}`;
 
         test(testDescription, () => {
-            expect(app.equals(value1, value2, { unorderedArrays: true })).toBe(result);
+            expect(app.equals(value1, value2, { unorderedArrays: true })).toBe(
+                result
+            );
         });
     });
 });
 
 describe("equals (several configuration values)", () => {
-    paramsConfiguration.forEach(({ value1, value2, options, description, result }) => {
-        const testDescription = result
-            ? `${description}: ${JSON.stringify(value1)} = ${JSON.stringify(value2)}`
-            : `${description}: ${JSON.stringify(value1)} \u2260 ${JSON.stringify(value2)}`;
+    paramsConfiguration.forEach(
+        ({ value1, value2, options, description, result }) => {
+            const testDescription = result
+                ? `${description}: ${JSON.stringify(value1)} = ${JSON.stringify(
+                    value2
+                )}`
+                : `${description}: ${JSON.stringify(value1)} \u2260 ${JSON.stringify(
+                    value2
+                )}`;
+
+            test(testDescription, () => {
+                expect(app.equals(value1, value2, options)).toBe(result);
+            });
+        }
+    );
+});
+
+describe("equals (string case-insensitive)", () => {
+    paramsCaseInsensitive.forEach(
+        ({ value1, value2, options, description, result }) => {
+            const testDescription = result
+                ? `${description}: ${JSON.stringify(value1)} \u2243 ${JSON.stringify(
+                    value2
+                )}`
+                : `${description}: ${JSON.stringify(value1)} \u2244 ${JSON.stringify(
+                    value2
+                )}`;
+
+            test(testDescription, () => {
+                expect(app.equals(value1, value2, options)).toBe(result);
+            });
+        }
+    );
+});
+
+describe("differs (simple types)", () => {
+    paramsDiffersSimpleTypes.forEach(({ value1, value2, result }) => {
+        const testDescription = Object.is(result, {})
+            ? `${value1} = ${value2}`
+            : `${value1} \u2260 ${value2}`;
 
         test(testDescription, () => {
-            expect(app.equals(value1, value2, options)).toBe(result);
+            expect(app.differs(value1, value2)).toEqual(result);
         });
     });
 });
 
+describe("differs (complex types)", () => {
+    paramsDiffersComplexTypes.forEach(({ value1, value2, result }) => {
+        const testDescription = Object.is(result, {})
+            ? `${JSON.stringify(value1)} = ${JSON.stringify(value2)}`
+            : `${JSON.stringify(value1)} \u2260 ${JSON.stringify(value2)}`;
+
+        test(testDescription, () => {
+            const actual = app.differs(value1, value2);
+            // TODO: do not compare the whole result but key by key
+            expect(actual).toEqual(result);
+        });
+    });
+});
