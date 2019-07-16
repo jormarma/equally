@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Version 0.4.1
+
+- Fixed README.md and CHANGELOG.md.
+
+## Version 0.4.0
+
+- `differs` method added that returnes detailed difference between 2 objects.
+- Improved documentation.
+- Upgraded dependency versions.
+- Updated roadmap.
+- Updated tests.
+
 ## Version 0.3.0
 
 - Comparison of string values can be configured as case-insensitive.

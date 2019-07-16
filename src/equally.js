@@ -248,7 +248,5 @@ const differs = (value1, value2, initialDifference, rootContext) => {
 module.exports = {
     equals,
     differs,
-    isComparableType,
-    areComparableTypes,
     sortArrayValues
 };

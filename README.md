@@ -145,7 +145,7 @@ _Simple values, they are equal_:
 const a = "one";
 const b = "one";
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = {}
 ```
 
@@ -158,7 +158,7 @@ _Simple values, they are different_:
 const a = "one";
 const b = "two";
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = { ".": { 0: "one", 1: "two" }}
 ```
 
@@ -173,7 +173,7 @@ _Object values, they are different on **key1**_:
 const a = { key1: "one", key2: "three" };
 const b = { key1: "two", key2: "three" };
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = { ".[\"key1\"]": { 0: "one", 1: "two" }}
 ```
 
@@ -191,7 +191,7 @@ _Object values, they are different on **key1** and **key2** exists only in **a**
 const a = { key1: "one", key2: "three" };
 const b = { key1: "two" };
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = {
 //    ".[\"key1\"]": { 0: "one", 1: "two" },
 //    ".[\"key2\"]": { 0: "three" }
@@ -207,7 +207,7 @@ _Array values, they are different on index **0**_:
 const a = [ "one", "three" ];
 const b = [ "two", "three" ];
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = { ".[0]": { 0: "one", 1: "two" } }
 ```
 
@@ -222,7 +222,7 @@ _Array values, they are different on index **0** and index **1** exists only in 
 const a = [ "one" ];
 const b = [ "two", "three" ];
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = {
 //      ".[0]": { 0: "one", 1: "two" }
 //      ".[1]": { 1: "three" }
@@ -234,11 +234,11 @@ _Complex objects, they differ at different levels of depth_:
 ```javascript
 // Given the previous examples, you could be able
 // to deduce the meaning of the 4 differences
-// that the differ method gets from the a and b objects.
+// that the differs method gets from the a and b objects.
 const a = { x: "one", y: [ 1, 2, 4 ], z: null }
 const b = { x: "two", y: [ 1, 3, 4, 5 ] }
 
-const res = differ(a, b);
+const res = differs(a, b);
 // res = {
 //      ".[\"x\"]": { 0: "one", 1: "two" },
 //      ".[\"y\"][1]": { 0: 2, 1: 3 },
