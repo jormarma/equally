@@ -628,12 +628,12 @@ const paramsDiffersSimpleTypes = [
     {
         value1 : "a",
         value2 : null,
-        result : { ".": ["a", null] }
+        result : { ".": { 0: "a", 1: null } }
     },
     {
         value1 : "a",
         value2 : "b",
-        result : { ".": ["a", "b"] }
+        result : { ".": { 0: "a", 1: "b" } }
     },
     {
         value1 : "a",
@@ -643,7 +643,7 @@ const paramsDiffersSimpleTypes = [
     {
         value1 : undefined,
         value2 : null,
-        result : { ".": [undefined, null] }
+        result : { ".": { 0: undefined, 1: null } }
     },
     {
         value1 : undefined,
@@ -653,7 +653,7 @@ const paramsDiffersSimpleTypes = [
     {
         value1 : BigInt(2),
         value2 : BigInt(1),
-        result : { ".": [BigInt(2), BigInt(1)] }
+        result : { ".": { 0: BigInt(2), 1: BigInt(1) } }
     },
     {
         value1 : 1,
@@ -667,61 +667,71 @@ const paramsDiffersComplexTypes = [
         value1 : [1, 2, 3, 4],
         value2 : [1, 3, 3, 5],
         result : {
-            ".[1]" : [2, 3],
-            ".[3]" : [4, 5]
+            ".[1]" : { 0: 2, 1: 3 },
+            ".[3]" : { 0: 4, 1: 5 }
         }
     },
     {
         value1 : [1, 2, [3, 4, []], 1.1, 0, 3],
         value2 : [1, 3, [3, 5, [1]], 1.1, undefined],
         result : {
-            ".[1]"       : [2, 3],
-            ".[2][1]"    : [4, 5],
-            ".[2][2][0]" : [undefined, 1, true],
-            ".[4]"       : [0, undefined],
-            ".[5]"       : [3, undefined, true]
+            ".[1]"       : { 0: 2, 1: 3 },
+            ".[2][1]"    : { 0: 4, 1: 5 },
+            ".[2][2][0]" : { 1: 1 },
+            ".[4]"       : { 0: 0, 1: undefined },
+            ".[5]"       : { 0: 3, 1: undefined }
         }
     },
     {
         value1 : { a: 1 },
         value2 : { a: 1, b: 1 },
         result : {
-            ".[\"b\"]": [undefined, 1, true]
+            ".[\"b\"]": { 1: 1 }
         }
     },
     {
         value1 : { a: 1, b: 1 },
         value2 : { a: 1 },
         result : {
-            ".[\"b\"]": [1, undefined, true]
+            ".[\"b\"]": { 0: 1 }
         }
     },
     {
         value1 : { a: 1, b: 2 },
         value2 : { a: 1, b: 1 },
         result : {
-            ".[\"b\"]": [2, 1]
+            ".[\"b\"]": { 0: 2, 1: 1 }
         }
     },
     {
         value1 : { a: 1, b: 2, c: 3 },
         value2 : { a: 1, b: 1, d: 3 },
         result : {
-            ".[\"b\"]" : [2, 1],
-            ".[\"c\"]" : [3, undefined, true],
-            ".[\"d\"]" : [undefined, 3, true]
+            ".[\"b\"]" : { 0: 2, 1: 1 },
+            ".[\"c\"]" : { 0: 3 },
+            ".[\"d\"]" : { 1: 3 }
         }
     },
     {
         value1 : { a: 1, b: { c: 2, d: [3, 4, 5, 6] }, k: undefined },
         value2 : { a: 0, b: { c: 1, d: [3, 3, 5] }, e: 3, k: 666 },
         result : {
-            ".[\"a\"]"           : [1, 0],
-            ".[\"b\"][\"c\"]"    : [2, 1],
-            ".[\"b\"][\"d\"][1]" : [4, 3],
-            ".[\"b\"][\"d\"][3]" : [6, undefined, true],
-            ".[\"e\"]"           : [undefined, 3, true],
-            ".[\"k\"]"           : [undefined, 666]
+            ".[\"a\"]"           : { 0: 1, 1: 0 },
+            ".[\"b\"][\"c\"]"    : { 0: 2, 1: 1 },
+            ".[\"b\"][\"d\"][1]" : { 0: 4, 1: 3 },
+            ".[\"b\"][\"d\"][3]" : { 0: 6 },
+            ".[\"e\"]"           : { 1: 3 },
+            ".[\"k\"]"           : { 0: undefined, 1: 666 }
+        }
+    },
+    {
+        value1 : { a: 1, b: undefined, c: 1 },
+        value2 : { a: undefined, b: 1, d: 1 },
+        result : {
+            ".[\"a\"]" : { 0: 1, 1: undefined },
+            ".[\"b\"]" : { 0: undefined, 1: 1 },
+            ".[\"c\"]" : { 0: 1 },
+            ".[\"d\"]" : { 1: 1 }
         }
     }
 ];
@@ -914,7 +924,7 @@ describe("equals (string case-insensitive)", () => {
 
 describe("differs (simple types)", () => {
     paramsDiffersSimpleTypes.forEach(({ value1, value2, result }) => {
-        const testDescription = Object.is(result, {})
+        const testDescription = app.equals(result, {})
             ? `${value1} = ${value2}`
             : `${value1} \u2260 ${value2}`;
 
@@ -926,7 +936,7 @@ describe("differs (simple types)", () => {
 
 describe("differs (complex types)", () => {
     paramsDiffersComplexTypes.forEach(({ value1, value2, result }) => {
-        const testDescription = Object.is(result, {})
+        const testDescription = app.equals(result, {})
             ? `${JSON.stringify(value1)} = ${JSON.stringify(value2)}`
             : `${JSON.stringify(value1)} \u2260 ${JSON.stringify(value2)}`;
 

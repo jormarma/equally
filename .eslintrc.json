@@ -10,7 +10,8 @@
     "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "BigInt": true
     },
     "parserOptions": {
         "ecmaVersion": 2018,
@@ -30,7 +31,7 @@
         "comma-dangle": [ "error", "never" ],
         "comma-spacing": ["error", { "before": false, "after": true }],
         "object-curly-spacing": ["error", "always"],
-        "keyword-spacing": ["error", { 
+        "keyword-spacing": ["error", {
             "before": true,
             "after": true
         }],
@@ -42,7 +43,7 @@
             "multiLine": {
                 "beforeColon": false,
                 "afterColon": true
-        
+
             },
             "align": {
                 "beforeColon": true,

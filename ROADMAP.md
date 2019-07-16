@@ -5,7 +5,7 @@ Any kind of contributions are welcome: documentation, examples, feature requests
 
 ## Differences between two values
 
-Creation of a new function returning an object with detailed differences between two values.
+Creation of a new function returning an object with detailed differences between two values (DONE). Make it configurable.
 
 ## Inclusion
 

@@ -6,7 +6,7 @@ const isComparableType = (value) => (
     isUndef(value)
     || value.constructor === RegExp // RegExp
     || value.constructor === Date   // Date
-    || !["object", "symbol", "function"].includes(typeof value) // undefined, boolean, number, bigint, string
+    || !["object", "function"].includes(typeof value) // undefined, boolean, number, bigint, symbol, string
 );
 
 const equalsStrings = (value1, value2, options) =>
@@ -18,16 +18,18 @@ const equalsStrings = (value1, value2, options) =>
 
 const areComparableTypes = (... values) => values.every(isComparableType);
 
-const getNumericType = (type) => {
+const getSortableTypename = (type) => {
     switch (type) {
-    case "undefined": return 1;
-    case "boolean": return 2;
-    case "number": return 3;
-    case "bigint": return 4;
-    case "Date": return 5;
-    case "RegExp": return 6;
-    case "string": return 7;
-    default: return 0; // "null"
+    case "null": return "0";
+    case "undefined": return "1";
+    case "boolean": return "2";
+    case "number": return "3";
+    case "bigint": return "4";
+    case "Date": return "5";
+    case "RegExp": return "6";
+    case "symbol": return "7";
+    case "string": return "8";
+    default: return type;
     }
 };
 
@@ -49,22 +51,23 @@ const sortArrayValues = (first, second) => {
     let typeSecond = getType(second);
 
     if (typeFirst === typeSecond) {
-        // null or undefined
-        if (isUndef(first)) {
+        switch (typeFirst) {
+        case "null":
+        case "undefined":
             return 0;
-        }
 
-        // Date
-        if (typeFirst === "Date") {
+        case "Date":
             return first.toISOString().localeCompare(second.toISOString());
-        }
 
-        // Everything else, compare the string representation
-        return first.toString().localeCompare(second.toString());
+        default:
+            // TODO: this does not work when objects or arrays
+            // Everything else, compare the string representation
+            return first.toString().localeCompare(second.toString());
+        }
     }
 
     // If different types, sort by type
-    return Math.sign(getNumericType(typeFirst) - getNumericType(typeSecond));
+    return getSortableTypename(typeFirst).localeCompare(getSortableTypename(typeSecond));
 };
 
 // same own properties, same values, any order
@@ -112,18 +115,10 @@ const equals = (value1, value2, options) => {
         return true;
     }
 
-    // If objects are not the same, and any of them is undef, then they are different
+    // If objects are not the same, and any of them is null or undefined,
+    // then they are different
     if (someUndef(value1, value2)) {
         return false;
-    }
-
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
-    if (value1.constructor === Date && value2.constructor === Date) {
-        return value1.toISOString() === value2.toISOString();
-    }
-
-    if (value1.constructor === RegExp && value2.constructor === RegExp) {
-        return value1.toString() === value2.toString();
     }
 
     // If both are objects, they have a special treatment
@@ -137,10 +132,19 @@ const equals = (value1, value2, options) => {
         return equalArrays(value1, value2, options);
     }
 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
+    if (value1.constructor === Date && value2.constructor === Date) {
+        return value1.toISOString() === value2.toISOString();
+    }
+
+    if (value1.constructor === RegExp && value2.constructor === RegExp) {
+        return value1.toString() === value2.toString();
+    }
+
     return false;
 };
 
-const DIRECTLY_COMPARABLE_TYPES = ["undefined", "null", "boolean", "number", "bigint", "string"];
+const DIRECTLY_COMPARABLE_TYPES = ["undefined", "null", "boolean", "number", "bigint", "symbol", "string"];
 
 const differs = (value1, value2, initialDifference, rootContext) => {
     const context = rootContext || ".";
@@ -151,28 +155,31 @@ const differs = (value1, value2, initialDifference, rootContext) => {
 
     // different types
     if (type1 !== type2) {
-        difference[context] = [value1, value2];
+        difference[context] = { 0: value1, 1: value2 };
         return difference;
     }
 
     // simple types and different values
     if (DIRECTLY_COMPARABLE_TYPES.includes(type1)) {
         if (!Object.is(value1, value2)) {
-            difference[context] = [value1, value2];
+            difference[context] = { 0: value1, 1: value2 };
         }
+
         return difference;
     }
     if (type1 === "RegEx") {
         if (value1.toString() !== value2.toString()) {
-            difference[context] = [value1, value2];
+            difference[context] = { 0: value1, 1: value2 };
         }
+
         return difference;
     }
 
     if (type1 === "Date") {
         if (value1.toISOString() !== value2.toISOString()) {
-            difference[context] = [value1, value2];
+            difference[context] = { 0: value1, 1: value2 };
         }
+
         return difference;
     }
 
@@ -186,7 +193,7 @@ const differs = (value1, value2, initialDifference, rootContext) => {
                     differs(arrayItem, value2[index], difference, localContext);
 
                 } else {
-                    difference[localContext] = [arrayItem, undefined, true];
+                    difference[localContext] = { 0: arrayItem };
                 }
             });
 
@@ -198,7 +205,7 @@ const differs = (value1, value2, initialDifference, rootContext) => {
                     differs(value1[index], arrayItem, difference, localContext);
 
                 } else {
-                    difference[localContext] = [undefined, arrayItem, true];
+                    difference[localContext] = { 1: arrayItem };
                 }
             });
         }
@@ -223,11 +230,11 @@ const differs = (value1, value2, initialDifference, rootContext) => {
                     differs(value1[key], value2[key], difference, localContext);
 
                 } else {
-                    difference[localContext] = [value1[key], undefined, true];
+                    difference[localContext] = { 0: value1[key] };
                 }
 
             } else {
-                difference[localContext] = [undefined, value2[key], true];
+                difference[localContext] = { 1: value2[key] };
             }
         });
 
