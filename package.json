@@ -8,7 +8,7 @@
   "description": "Method to deeply compare two Javascript Objects for equality.",
   "main": "src/equally.js",
   "engines": {
-    "node": ">=12.4.0"
+    "node": ">=14"
   },
   "scripts": {
     "test": "jest --coverage"
@@ -25,9 +25,12 @@
   "author": "Jorge Martí Marín <jormarma@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-plugin-jest": "^22.8.0",
-    "jest": "^24.8.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jest": "^22.21.0",
+    "jest": "^24.9.0",
     "jslint": "^0.12.1"
+  },
+  "dependencies": {
+    "acorn": "^7.2.0"
   }
 }
