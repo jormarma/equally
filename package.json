@@ -31,6 +31,6 @@
     "jslint": "^0.12.1"
   },
   "dependencies": {
-    "acorn": "^7.2.0"
+    "acorn": "^7.3.1"
   }
 }
