@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.4.3
+
+- Fixed some vulnerability alerts and updated some dependencies.
+
 ## Version 0.4.2
 
 - Fixed some vulnerability alerts and updated some dependencies.
