@@ -4,6 +4,20 @@
 
 This project is a simple method to deeply compare two Javascript values for equality.
 
+## Testing
+
+### Testing with `npm`
+
+Execute the following command:
+
+`npm test`
+
+### Testing with `docker`
+
+Execute the following command:
+
+`. ./test.sh`
+
 ## Instalation and usage
 
 You only have to install `equally` using the regular procedure with `npm`:
