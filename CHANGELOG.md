@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.4.4
+
+- Added Docker support for testing purposes.
+
 ## Version 0.4.3
 
 - Fixed some vulnerability alerts and updated some dependencies.
