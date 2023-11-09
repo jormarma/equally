@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 0.4.6
+
+- Improved Dockerfile.
+- Updated dependencies.
+
 ## Version 0.4.4
 
 - Added Docker support for testing purposes.
